@@ -1,11 +1,16 @@
 require('dotenv').config()
 const express = require('express')
 const app = express()
+const PORT = process.env.PORT || 3000;
 
 const { Pool } = require('pg')
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: { rejectUnauthorized: false }
+});
+
+app.get('/', (req, res) => {
+    res.redirect('/products');
 });
 
 app.get('/products', async (req, res) => {
@@ -52,7 +57,7 @@ app.get('/products', async (req, res) => {
 });
 
 
-app.listen(3000,()=>{
-    console.log(`Server running on PORT ${3000}`);
+app.listen(PORT , ()=>{
+    console.log(`Server running on PORT ${PORT}`);
 });
 
